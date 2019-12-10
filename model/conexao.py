@@ -5,6 +5,7 @@ class ConectaBanco:  # Define a classe
     def __init__(self):  # init é o metodo inicializador da classe
 
         self.con = ""  # Cria a variavel de conexão vazia
+        self.nome = ""
 
     def conecta(self):  # Método para conectar no banco
         host = "localhost"  # Nome utilizado no host no Workbenck
@@ -51,15 +52,51 @@ class ConectaBanco:  # Define a classe
         elif len(args) == 1:
             self.conecta()
             cur = self.con.cursor()
-
             query = (
                 "select login_usuario, senha_usuario from tbl_usuarios where login_usuario = '{}';".format(
                     args[0]))
             cur.execute(query)
-
             resultado = cur.fetchall()
 
             if len(resultado) > 0:
                 return True
             else:
                 return False
+
+    def criar(self, nomeC, gastoC, precoC):
+        self.conecta()
+        cur = self.con.cursor()
+        queryC = ('insert into tbl_produtos (nome_produto, gasto_produto, venda_produto)values ("{}", "{}", "{}");'.format(nomeC, gastoC, precoC))
+        cur.execute(queryC)
+        self.con.commit()
+        self.con.close()
+
+    def ler(self, nomeR):
+        self.conecta()
+        cur = self.con.cursor()
+        queryR = ('select * from tbl_produtos where nome_produto = "{}" ;'.format(nomeR))
+        self.nome = nomeR
+        cur.execute(queryR)
+        resultado = cur.fetchall()
+        if len(resultado) > 0:
+            return True
+        else:
+            return False
+        self.con.close()
+
+    def atualizar(self, nomeU, gastoU, precoU):
+        self.conecta()
+        cur = self.con.cursor()
+        #query = f'select cod_produto from tbl_produtos where nome_produto = "{self.nome}"'
+        #cur.execute(query)
+        queryU = ('update tbl_produto set nomeU = "{}", gastoU = {}, precoU = {} where ')
+        cur.execute(queryU)
+        self.con.close()
+
+    def apagar(self, nomeD):
+        self.conecta()
+        cur = self.con.cursor()
+        queryD = ('delete from tbl_produtos where nome_produto = "{}"'.format(nomeD))
+        cur.execute(queryD)
+        self.con.commit()
+        self.con.close()

@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import ttk
-import tkinter.colorchooser
 from functools import partial
 from view.v_crud import CRUDWindow
 from controller.controller_usu import ControllerLogin

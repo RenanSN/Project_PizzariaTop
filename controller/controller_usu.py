@@ -11,5 +11,22 @@ class ControllerLogin():
         resultado = banco.verificaUsuario(*args)
         return resultado
 
+class Controllercrud():
+    def creat(self, nomeC, gastoC, precoC):
+        banco = ConectaBanco()
+        banco.criar(nomeC, gastoC, precoC)
 
+    def read(self, nomeR):
+        banco = ConectaBanco()
+        resultado = banco.ler(nomeR)
+        return resultado
 
+    def update(self, nomeU, gastoU, precoU):
+        banco = ConectaBanco()
+        resultado = banco.atualizar(nomeU, gastoU, precoU)
+        return resultado
+
+    def delete(self, nomeD):
+        banco = ConectaBanco()
+        resultado = banco.apagar(nomeD)
+        return resultado
