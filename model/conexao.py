@@ -11,15 +11,15 @@ class ConectaBanco:  # Define a classe
         host = "localhost"  # Nome utilizado no host no Workbenck
         user = "root"  # Nome do usuario que criamos no Workbenck
         password = ""  # Senha que colocamos para o usuario
-        db = "produtos_pizzaria"  # Nome do banco de dados
+        db = "pizzariatop"  # Nome do banco de dados
         port = 3306  # Porta configurada para o server MySQL
         self.con = MySQLdb.connect(host, user, password, db, port)  # Na variavel con cria nossa conexão
 
-    def insereUsuario(self, usuario, senha, nome): #Método que faz a criação do usuário no banco de dados, inserindo o nome, senha e login
+    def insereUsuario(self, usuario, senha): #Método que faz a criação do usuário no banco de dados, inserindo o nome, senha e login
         self.conecta()
         cur = self.con.cursor()
 
-        query = ('insert into tbl_usuarios (login_usuario, senha_usuario, nome_usuario)values ("{}", "{}", "{}");'.format(usuario, senha, nome))
+        query = ('insert into tbl_usuarios (login_usuario, senha_usuario)values ("{}", "{}");'.format(usuario, senha))
         #Query que faz a inserção da login, senha e nome
 
         cur.execute(query)
